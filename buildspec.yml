@@ -14,7 +14,7 @@ phases:
        - docker push $ECR_REPO_FRONTEND_URI:$TAG
        - IMAGE_URI_FRONTEND=$ECR_REPO_FRONTEND_URI:$TAG
        - echo $IMAGE_URI_FRONTEND
-       - printf "{\ImageURI\":\"$IMAGE_URI_FRONTEND\"}" > imageDetail.json
+       - printf "{\"ImageURI\":\"$IMAGE_URI_FRONTEND\"}" > imageDetail.json
        - echo "Frontend Built and Pushed"
        # Frontend Complete
        - cd $CODEBUILD_SRC_DIR/backend
@@ -22,7 +22,7 @@ phases:
        - docker push $ECR_REPO_BACKEND_URI:$TAG
        - IMAGE_URI_BACKEND=$ECR_REPO_BACKEND_URI:$TAG
        - echo $IMAGE_URI_BACKEND
-       - printf "{\ImageURI\":\"$IMAGE_URI_BACKEND\"}" > imageDetail.json
+       - printf "{\"ImageURI\":\"$IMAGE_URI_BACKEND\"}" > imageDetail.json
 artifacts:
   files:
     - '**/*'
