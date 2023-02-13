@@ -1,0 +1,37 @@
+version: 0.2
+phases:
+  pre-build:
+    commands:
+       - aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 997477333591.dkr.ecr.us-east-1.amazonaws.com
+       - ECR_REPO_FRONTEND_URI="997477333591.dkr.ecr.us-east-1.amazonaws.com/frontend"
+       - ECR_REPO_BACKEND_URI="997477333591.dkr.ecr.us-east-1.amazonaws.com/backend"
+       - TAG=$(echo $CODEBUILD_RESOLVED_SOURCE_VERSION | cut -c 1-8)
+  build:
+    commands:
+       # Building Frontend
+       - cd $CODEBUILD_SRC_DIR/frontend
+       - docker build -t $ECR_REPO_FRONTEND_URI:$TAG .
+       - docker push $ECR_REPO_FRONTEND_URI:$TAG
+       - IMAGE_URI_FRONTEND=$ECR_REPO_FRONTEND_URI:$TAG
+       - echo $IMAGE_URI_FRONTEND
+       - printf "{\ImageURI\":\"$IMAGE_URI_FRONTEND\"}" > imageDetail.json
+       - echo "Frontend Built and Pushed"
+       # Frontend Complete
+       - cd $CODEBUILD_SRC_DIR/backend
+       - docker build -t $ECR_REPO_BACKEND_URI:$TAG .
+       - docker push $ECR_REPO_BACKEND_URI:$TAG
+       - IMAGE_URI_BACKEND=$ECR_REPO_BACKEND_URI:$TAG
+       - echo $IMAGE_URI_BACKEND
+       - printf "{\ImageURI\":\"$IMAGE_URI_BACKEND\"}" > imageDetail.json
+artifacts:
+  files:
+    - '**/*'
+  secondary-artifacts:
+    frontend-artifact:
+      base-directory: $CODEBUILD_SRC_DIR/frontend
+      files:
+        - imageDetail.json
+    backend-artifact:
+      base-directory: $CODEBUILD_SRC_DIR/backend
+      files:
+        - imageDetail.json
