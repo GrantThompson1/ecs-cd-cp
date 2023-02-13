@@ -2,7 +2,7 @@
     "containerDefinitions": [ 
        { 
           "essential": true,
-          "image": "997477333591.dkr.ecr.us-east-1.amazonaws.com/frontend",
+          "image": "<FRONTEND>",
           "logConfiguration": { 
              "logDriver": "awslogs",
              "options": { 
@@ -22,7 +22,7 @@
        },
        { 
           "essential": true,
-          "image": "997477333591.dkr.ecr.us-east-1.amazonaws.com/backend",
+          "image": "<BACKEND>",
           "logConfiguration": { 
              "logDriver": "awslogs",
              "options": { 
@@ -43,7 +43,7 @@
     ],
     "cpu": "256",
     "executionRoleArn": "arn:aws:iam::997477333591:role/ecsTaskExecutionRole",
-    "family": "ecs-two-cont",
+    "family": "ecs-full-service",
     "memory": "512",
     "networkMode": "awsvpc",
     "runtimePlatform": {

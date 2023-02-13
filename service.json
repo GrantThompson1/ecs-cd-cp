@@ -1,11 +1,11 @@
 {
     "cluster": "ecs-cp-cluster",
     "serviceName": "ecs-cd-service",
-    "taskDefinition": "ecs-full-service:1",
+    "taskDefinition": "ecs-full-service:2",
     "loadBalancers": [
         {
-            "targetGroupArn": "arn:aws:elasticloadbalancing:us-east-1:997477333591:targetgroup/ecs-cp-tg1/339e20f53ab916d7",
-            "containerName": "flaskapp",
+            "targetGroupArn": "arn:aws:elasticloadbalancing:us-east-1:997477333591:targetgroup/ecs-cd-cp-tg1/64d406c762d5518e",
+            "containerName": "frontend",
             "containerPort": 80
         }
     ],
@@ -26,7 +26,7 @@
     },
     "schedulingStrategy": "REPLICA",
     "deploymentController": {
-        "type": "ECS"
+        "type": "CODE_DEPLOY"
     },
     "tags": [
         {
