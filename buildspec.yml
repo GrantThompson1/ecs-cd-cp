@@ -27,11 +27,16 @@ artifacts:
   files:
     - '**/*'
   secondary-artifacts:
-    frontend-artifact:
+    BuildArtifact:
+      base-directory: $CODEBUILD_SRC_DIR
+      files:
+        - taskdef.json
+        - appspec.yml
+    frontendArtifact:
       base-directory: $CODEBUILD_SRC_DIR/frontend
       files:
         - imageDetail.json
-    backend-artifact:
+    backendArtifact:
       base-directory: $CODEBUILD_SRC_DIR/backend
       files:
         - imageDetail.json
