@@ -5,7 +5,8 @@ phases:
        - aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 997477333591.dkr.ecr.us-east-1.amazonaws.com
        - ECR_REPO_FRONTEND_URI="997477333591.dkr.ecr.us-east-1.amazonaws.com/frontend"
        - ECR_REPO_BACKEND_URI="997477333591.dkr.ecr.us-east-1.amazonaws.com/backend"
-       - TAG=$(echo $CODEBUILD_RESOLVED_SOURCE_VERSION | cut -c 1-8)
+       - TAG="v1.0.3"
+       #- TAG=$(echo $CODEBUILD_RESOLVED_SOURCE_VERSION | cut -c 1-8)
   build:
     commands:
        # Building Frontend
